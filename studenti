@@ -1,0 +1,148 @@
+#include "pch.h"
+#include <iostream>
+using namespace std;
+
+struct Student
+{
+	const char* nume;
+	const char* prenume;
+	float nota1;
+	float nota2;
+	float medie;
+};
+
+void afisare_student(Student* student)
+{
+	cout << "Nume: " << student->nume << endl;
+	cout << "Prenume: " << student->prenume << endl;
+	cout << "Nota 1: " << student->nota1 << endl;
+	cout << "Nota 2: " << student->nota2 << endl;
+	cout << "Media notelor: " << student->medie << endl;
+	cout << endl;
+}
+
+void afisare_student_promovat(Student* StudentPromovat)
+{
+	cout << "Nume si prenume: " << StudentPromovat->nume << " " << StudentPromovat->prenume << endl;
+	cout << "Media notelor: " << StudentPromovat->medie << endl;
+	cout << endl;
+}
+
+Student cea_mai_mare_nota(int n, Student* studenti)
+{
+	Student s = studenti[0];
+	for (int i = 1;i <= n - 1;i++)
+	{
+		if (studenti[i].medie > s.medie)
+		{
+			s = studenti[i];
+		}
+	}
+	return s;
+}
+
+Student cea_mai_mica_nota(int n, Student* studenti)
+{
+	Student r = studenti[0];
+	for (int i = 1;i <= n - 1;i++)
+	{
+		if (studenti[i].medie < r.medie)
+		{
+			r = studenti[i];
+		}
+	}
+	return r;
+}
+
+
+int main()
+{
+	int n = 5;
+	int i;
+	float media1;
+	float media2;
+
+	Student* studenti = new Student[n];
+	studenti[0].nume = "Velea";
+	studenti[0].prenume = "Ionut";
+	studenti[0].nota1 = 9;
+	studenti[0].nota2 = 10;
+
+	studenti[1].nume = "Velicu";
+	studenti[1].prenume = "Alexandru";
+	studenti[1].nota1 = 9;
+	studenti[1].nota2 = 8;
+
+	studenti[2].nume = "Andrei";
+	studenti[2].prenume = "Mircea";
+	studenti[2].nota1 = 8;
+	studenti[2].nota2 = 6;
+
+	studenti[3].nume = "Marin";
+	studenti[3].prenume = "Andrei";
+	studenti[3].nota1 = 6;
+	studenti[3].nota2 = 9;
+
+	studenti[4].nume = "Pop";
+	studenti[4].prenume = "Ion";
+	studenti[4].nota1 = 5;
+	studenti[4].nota2 = 7;
+
+	for (i = 0; i <= n - 1; i++)
+	{
+		studenti[i].medie = (studenti[i].nota1 + studenti[i].nota2) / 2;
+	}
+
+
+	for (i = 0; i <= n - 1; i++)
+	{
+		afisare_student(&studenti[i]);
+	}
+
+	Student T = cea_mai_mare_nota(n, studenti);
+	cout << "Studentul cu cea mai mare medie este: " << endl;
+	afisare_student(&T);
+	Student G = cea_mai_mica_nota(n, studenti);
+	cout << "Studentul cu cea mai mica medie este: " << endl;
+	afisare_student(&G);
+
+
+	media1 = studenti[0].nota1;
+	for (int i = 1; i < n; i++)
+	{
+		media1 = media1 + studenti[i].nota1;
+	}
+	media1 = media1 / n;
+	cout << "Media notei 1 este: " << media1 << endl;
+	cout << endl;
+
+	media2 = studenti[0].nota2;
+	for (int i = 1; i < n;i++)
+	{
+		media2 = media2 + studenti[i].nota2;
+	}
+	media2 = media2 / n;
+	cout << "Media notei 2 este: " << media2 << endl;
+	cout << endl;
+
+
+	cout << "Studentii promovati sunt: ";
+	cout<<endl;
+	for (i = 0; i <= n - 1; i++)
+	{
+		studenti[i].medie = (studenti[i].nota1 + studenti[i].nota2) / 2;
+		if (studenti[i].medie > 5)
+		{
+			afisare_student_promovat(&studenti[i]);
+
+		}
+	}
+
+	
+
+
+
+	system("pause");
+	return 0;
+
+}
